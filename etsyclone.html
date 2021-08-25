@@ -1,0 +1,715 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@300;400;500&family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet">
+    
+    <!-- font-family: 'Bitter', serif;
+    font-family: 'Montserrat', sans-serif; -->
+
+
+    <title>Etsy - Clone</title>
+    <style>
+        body{
+            -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+            -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+            box-sizing: border-box; 
+        }
+        .body-text-thin{
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 200;
+        }
+        .body-text-normal{
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+        }
+        .body-text-bold{
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+        }
+        .title-text-thin{
+            font-family: 'Bitter', serif;
+            font-weight: 300;
+        }
+        .title-text-normal{
+            font-family: 'Bitter', serif;
+            font-weight: 400;
+        }
+        .title-text-thick{
+            font-family: 'Bitter', serif;
+            font-weight: 500;
+        }
+        .etsy-orange {
+            color: #F1641E
+        }
+    
+        .circle-hover {
+            width: 50px;
+            height: 50px;
+            line-height: 48px;
+            text-align: center;
+            border-radius: 50%;
+        }
+    
+        .oval-hover {
+            width: 70px;
+            height: 50px;
+            line-height: 46px;
+            text-align: center;
+            border-radius: 30px;
+        }
+    
+        .circle-hover:hover {
+            background-color: #f1f1f1;
+        }
+    
+        .oval-hover:hover {
+            background-color: #f1f1f1;
+        }
+    
+        #notification-dropdown{
+            display: none; 
+            position: relative; 
+            top: .45rem;
+            left: -16rem;
+            width: 318px;
+            max-width: 318px;
+            height: 504px;
+            max-height: 504px;
+            border-radius: 15px;
+        }
+        #notification-dropdown:after {
+            content: "";
+            position: absolute;
+            top: -7px;
+            right: 1rem;
+            height: 12px;
+            width: 12px;
+            /* border-top: 1px solid; */
+            border-left: 1px solid rgba(0,0,0,.125);
+            border-top: 1px solid rgba(0,0,0,.125);
+            background-color: white;
+            transform: rotate(45deg);
+        }
+        #profile-dropdown{
+            display: none; 
+            position: relative; 
+            top: .45rem;
+            left: -10.5rem;
+            width: 226px;
+            height: 316px;
+            border-radius: 15px;
+        }
+        #profile-dropdown:after {
+            content: "";
+            position: absolute;
+            top: -7px;
+            right: 1rem;
+            height: 12px;
+            width: 12px;
+            /* border-top: 1px solid; */
+            border-left: 1px solid rgba(0,0,0,.125);
+            border-top: 1px solid rgba(0,0,0,.125);
+            background-color: white;
+            transform: rotate(45deg);
+        }
+        .nav-link-text{
+           padding-bottom: 16px;
+        }
+        .nav-link-text:hover{
+            padding-bottom: 14px;
+            border-bottom: 2px solid black;
+        }
+        .img-circles{
+            border-radius: 50%;
+            width: 160px;
+        }
+        .square-pic{
+            width:  206px;
+            height: 164px;
+            object-fit: cover;
+            object-position: 20% 10%;
+        }
+    </style>
+    <script>
+        function showhideNotifications() {
+            var notification = document.getElementById("notification-dropdown");
+            var profile = document.getElementById("profile-dropdown");
+            profile.style.display = "none";
+                if (notification.style.display === "none") {
+                    notification.style.display = "block";
+                } else {
+                    notification.style.display = "none";
+                }
+            }
+        function showhideProfileDropdown() {
+            var notification = document.getElementById("notification-dropdown");
+            var profile = document.getElementById("profile-dropdown");
+            notification.style.display = "none";
+            if (profile.style.display === "none") {
+                profile.style.display = "block";
+            } else {
+                profile.style.display = "none";
+            }
+        }
+    </script>
+  </head>
+  <body>
+    <section class="w-100 h-100">
+        <div>
+            <nav class="d-flex align-items-center body-text-thin"
+                style="margin-left: 11.1rem; margin-right: 10.5rem; margin-top: .75rem; margin-bottom: 1.25rem">
+                <img style="width: 4.6rem; margin-right: 1rem" src="etsylogo.png"
+                    alt="The etsy logo - the word Etsy in orange times new roman looking font.">
+                <div class="d-flex align-items-center"
+                    style="border: solid black 2px; border-radius: 30px; padding:9px 28px 9px 18px; background-color: #f1f1f1; width: 78%">
+                    <input class="mr-2 w-100 border-0" style="background-color: #f1f1f1" type="text"
+                        placeholder="Shop for anything on Etsy">
+                    <img style="width: 1.25rem;" src="loupe.png" alt="black outline of magnifying glass">
+                </div>
+                <div class="d-flex align-items-center" style="padding-left: 1rem !important">
+                    <div class="circle-hover mr-3">
+                        <svg style="width: 24px; height: 24px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                            aria-hidden="true" focusable="false">
+                            <path
+                                d="M12,21C10.349,21,2,14.688,2,9,2,5.579,4.364,3,7.5,3A6.912,6.912,0,0,1,12,5.051,6.953,6.953,0,0,1,16.5,3C19.636,3,22,5.579,22,9,22,14.688,13.651,21,12,21ZM7.5,5C5.472,5,4,6.683,4,9c0,4.108,6.432,9.325,8,10,1.564-.657,8-5.832,8-10,0-2.317-1.472-4-3.5-4-1.979,0-3.7,2.105-3.721,2.127L11.991,8.1,11.216,7.12C11.186,7.083,9.5,5,7.5,5Z">
+                            </path>
+                        </svg>
+                    </div>
+                    <div class="oval-hover mr-3" onclick="showhideNotifications()">
+                        <svg style="width: 24px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"
+                            focusable="false">
+                            <path
+                                d="M20.8,18.4C19.3,16.7,19,12.5,19,11c0-3.2-2.1-5.8-5-6.7V4c0-1.1-0.9-2-2-2s-2,0.9-2,2l0,0v0.3C7.1,5.2,5,7.8,5,11 c0,1.5-0.3,5.7-1.8,7.4c-0.3,0.3-0.3,0.7-0.1,1.1S3.6,20,4,20h4.6c0.7,1.2,2,2,3.4,2s2.8-0.8,3.4-2H20c0.4,0,0.7-0.2,0.9-0.6 S21,18.6,20.8,18.4z M16,18H8H5.8C7,15.3,7,11.5,7,11c0-2.8,2.2-5,5-5s5,2.2,5,5c0,0.5,0,4.3,1.2,7H16z">
+                            </path>
+                        </svg>
+                        <svg style="width: 24px; fill:#bcbcbc" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                            aria-hidden="true" focusable="false">
+                            <polygon points="16.5 10 12 16 7.5 10 16.5 10"></polygon>
+                        </svg>
+                        <div id="notification-dropdown" class="card shadow-sm"></div>
+                    </div>
+                    <div class="oval-hover mr-3" onclick="showhideProfileDropdown()">
+                        <img style="width: 24px; border-radius: 50%"
+                            src="https://img2.etsystatic.com/site-assets/images/global-nav/no-user-avatar.svg"
+                            alt="black outline of a person - link to user profile.">
+                        <svg style="width: 24px; fill:#bcbcbc" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                            aria-hidden="true" focusable="false">
+                            <polygon points="16.5 10 12 16 7.5 10 16.5 10"></polygon>
+                        </svg>
+                        <div id="profile-dropdown" class="card shadow-sm">
+                            <div class="d-flex align-items-center justify-content-between"
+                                style="padding: .375rem 1.125rem">
+                                <img style="width: 24px; border-radius: 50%"
+                                    src="https://img2.etsystatic.com/site-assets/images/global-nav/no-user-avatar.svg"
+                                    alt="black outline of a person - link to user profile.">
+                                <span class="w-100" style="text-align: left; margin-left:.75rem">
+                                    <div style="font-size: 16px; margin-bottom: -1.75rem"><strong>Shanda McKinney</strong>
+                                    </div>
+                                    <div class="mb-0" style="font-size: 13px">View your profile</div>
+                                </span>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between"
+                                style="padding: .375rem 1.125rem; margin-top: -1.45rem">
+                                <svg style="width: 24px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                    aria-hidden="true" focusable="false">
+                                    <path
+                                        d="M20 6h-1.4c.3-.5.4-1 .4-1.5C19 2.6 17.4 1 15.5 1H15c-1.2 0-2.3.5-3 1.4-.7-.9-1.8-1.4-3-1.4h-.5C6.6 1 5 2.6 5 4.5c0 .5.1 1 .4 1.5H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 7h-7V9.5l2.8 2.1L17 10l-2.7-2H20v5zM15 3h.5c.8 0 1.5.7 1.5 1.5S16.3 6 15.5 6H13V5c0-1.1.9-2 2-2zM7 4.5C7 3.7 7.7 3 8.5 3H9c1.1 0 2 .9 2 2v1H8.5C7.7 6 7 5.3 7 4.5zM4 8h5.7L7 10l1.2 1.6L11 9.5V13H4v2h7v5H4V8zm9 12v-5h7v5h-7z">
+                                    </path>
+                                </svg>
+                                <div class="w-100" style="font-size: 13px;">Gift card balance: $0.00</div>
+                            </div>
+                            <div class="d-flex align-items-center" style="padding: .375rem 1.125rem; margin-top: -1.45rem">
+                                <svg style="width: 24px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                    aria-hidden="true" focusable="false">
+                                    <path
+                                        d="M21 3H3a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8.65l4.73 3.78a1 1 0 0 0 1.4-.15A1 1 0 0 0 18 20v-3h3a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zm-1 12.05h-4V18l-3.38-2.71a.92.92 0 0 0-.62-.22H4V5h16zM8 11a1 1 0 1 0-1-1 1 1 0 0 0 1 1zm4 0a1 1 0 1 0-1-1 1 1 0 0 0 1 1zm4 0a1 1 0 1 0-1-1 1 1 0 0 0 1 1z">
+                                    </path>
+                                </svg>
+                                <span class="w-100 mb-0"
+                                    style="font-size: 13px;text-align: left; margin-left:.75rem;">Messages</span>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between"
+                                style="padding: .375rem 1.125rem; margin-top: -1.45rem">
+                                <svg style="width: 24px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                    aria-hidden="true" focusable="false">
+                                    <path d="M16.5,12h-9a0.5,0.5,0,0,1,0-1h9A0.5,0.5,0,0,1,16.5,12Z"></path>
+                                    <path d="M15.5,15h-8a0.5,0.5,0,0,1,0-1h8A0.5,0.5,0,0,1,15.5,15Z"></path>
+                                    <path d="M13.5,18h-6a0.5,0.5,0,0,1,0-1h6A0.5,0.5,0,1,1,13.5,18Z"></path>
+                                    <path
+                                        d="M20,3H15.859A3.982,3.982,0,0,0,8.141,3H4A1,1,0,0,0,3,4V21a1,1,0,0,0,1,1H20a1,1,0,0,0,1-1V4A1,1,0,0,0,20,3ZM10,5h0.277A1.979,1.979,0,0,1,10,4a2,2,0,0,1,4,0,1.979,1.979,0,0,1-.277,1H14a2,2,0,0,1,2,2H8A2,2,0,0,1,10,5Zm9,15H5V5H6.54A3.972,3.972,0,0,0,6,7V9H18V7a3.972,3.972,0,0,0-.54-2H19V20Z">
+                                    </path>
+                                    <circle cx="12" cy="3.5" r="0.5"></circle>
+                                </svg>
+                                <span class="w-100 mb-0"
+                                    style="font-size: 13px;text-align: left; margin-left:.75rem;">Purchases
+                                    and reviews</span>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between"
+                                style="padding: .375rem 1.125rem; margin-top: -1.45rem">
+                                <svg style="width: 24px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                    aria-hidden="true" focusable="false">
+                                    <path
+                                        d="M19 12.3v-.6l.9-.9c.3-.3.5-.7.6-1.2.1-.4 0-.9-.2-1.3l-1-1.7c-.2-.4-.6-.7-1-.9-.4-.2-.9-.2-1.3-.1l-1.2.3c-.2-.1-.4-.2-.5-.3L15 4.4c-.1-.4-.4-.8-.7-1.1-.4-.1-.9-.3-1.3-.3h-2c-.4 0-.9.2-1.2.4-.4.3-.6.7-.7 1.1l-.4 1.2c-.1.1-.3.2-.5.4L7 5.7c-.4-.1-.9-.1-1.3.1s-.8.5-1 .9l-1 1.7c-.2.4-.3.8-.2 1.2.1.4.3.9.6 1.2l.9.9v.6l-1 .9c-.3.3-.5.7-.6 1.2s0 .9.2 1.3l1 1.7c.2.3.4.6.7.7.5.3 1 .3 1.6.2l1.2-.3c.2.1.4.2.5.3l.4 1.2c.1.4.4.8.7 1.1.4.3.8.4 1.2.4h2c.4 0 .9-.2 1.2-.4.4-.3.6-.7.7-1.1l.3-1.2c.2-.1.4-.2.5-.3l1.2.3c.2 0 .4.1.5.1.4 0 .7-.1 1-.3.3-.2.6-.4.7-.7l1-1.7c.2-.4.3-.8.3-1.3-.1-.4-.3-.8-.6-1.2l-.7-.9zm-2-1.4l.1.5v1.1l-.1.6 1.6 1.6-1 1.7-2.2-.6-.4.2c-.3.2-.7.4-1 .6l-.5.2L13 19h-2l-.5-2.2-.5-.2c-.4-.2-.7-.4-1-.6l-.4-.3-2.2.6-1-1.7L7 13.1v-.5V10.9L5.4 9.4l1-1.7 2.2.6L9 8c.3-.2.7-.4 1-.6l.5-.2L11 5h2l.5 2.2.5.2c.4.2.7.4 1 .6l.4.3 2.2-.6 1 1.7-1.6 1.5z">
+                                    </path>
+                                    <path
+                                        d="M12 9c-1.7 0-3 1.4-3 3s1.4 3 3 3 3-1.4 3-3-1.3-3-3-3zm0 4c-.6 0-1-.5-1-1s.5-1 1-1 1 .5 1 1-.4 1-1 1z">
+                                    </path>
+                                </svg>
+                                <span class="w-100 mb-0"
+                                    style="font-size: 13px;text-align: left; margin-left:.75rem;">Account
+                                    settings</span>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between"
+                                style="padding: .375rem 1.125rem; margin-top: -1.45rem">
+                                <svg style="width: 24px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                    aria-hidden="true" focusable="false">
+                                    <path
+                                        d="M21,13a1,1,0,0,0-1,1v1H4V14a1,1,0,0,0-2,0v7a1,1,0,0,0,1,1H21a1,1,0,0,0,1-1V14A1,1,0,0,0,21,13ZM4,20V17H20v3H4Z">
+                                    </path>
+                                    <path
+                                        d="M22.895,8.553l-3-6A1,1,0,0,0,19,2H5a1,1,0,0,0-.895.553l-3,6A1,1,0,0,0,1,9a3,3,0,0,0,5,2.234,3,3,0,0,0,4,0,3,3,0,0,0,4,0,3,3,0,0,0,4,0A3,3,0,0,0,23,9,1,1,0,0,0,22.895,8.553ZM20,10a1,1,0,0,1-1-1,1,1,0,1,0-2,0,1,1,0,1,1-2,0,1,1,0,0,0-2,0,1,1,0,1,1-2,0A1,1,0,0,0,9,9,1,1,0,1,1,7,9,1,1,0,0,0,5,9a1,1,0,0,1-1.98.2L5.618,4H18.382l2.6,5.2A1,1,0,0,1,20,10Z">
+                                    </path>
+                                </svg>
+                                <span class="w-100 mb-0" style="font-size: 13px;text-align: left; margin-left:.75rem;">Sell
+                                    on
+                                    Etsy</span>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between"
+                                style="padding: .375rem 1.125rem">
+                                <svg style="width: 24px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                    aria-hidden="true" focusable="false">
+                                    <path
+                                        d="M2.7 11.3L2 12l.7.7 4 4c.4.4 1 .4 1.4 0 .4-.4.4-1 0-1.4L5.8 13H15c.6 0 1-.4 1-1s-.4-1-1-1H5.8l2.3-2.3c.2-.2.3-.4.3-.7 0-.6-.4-1-1-1-.3 0-.5.1-.7.3l-4 4z">
+                                    </path>
+                                    <path d="M22 19H10v-2h10V7H10V5h12z"></path>
+                                </svg>
+                                <span class="w-100 mb-0" style="font-size: 13px;text-align: left; margin-left:.75rem;">Sign
+                                    out</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="circle-hover mr-3">
+                        <svg style="width: 24px; height: 24px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                            aria-hidden="true" focusable="false">
+                            <path
+                                d="M21 10a1 1 0 0 0-1-1h-3c.059-.682.287-4.441-1.611-6.555A4.363 4.363 0 0 0 12 1a4.363 4.363 0 0 0-3.394 1.445C6.709 4.559 6.937 8.318 7 9H4a1 1 0 0 0-1 1c0 .752.008 7.413 1.12 9.478 1.416 2.622 5.92 3.474 7.88 3.474 2.12 0 6.61-1.024 7.888-3.492C20.992 17.326 21 10.74 21 10zm-5.307 7c.094-.43.19-.862.283-1.283l.159-.717h2.651c-.066.727-.149 1.412-.251 2h-2.842zM5.457 17c-.1-.586-.183-1.271-.248-2h2.656l.159.717c.093.421.189.853.283 1.283h-2.85zm4.519-1.717L9.914 15h4.173l-.063.283c-.13.585-.258 1.162-.378 1.717h-3.292c-.119-.554-.247-1.131-.377-1.717zM9.479 13c-.156-.744-.289-1.436-.376-2H14.9c-.087.564-.22 1.256-.376 2H9.479zm9.446 0h-2.362c.152-.748.278-1.431.354-2h2.075c-.01.623-.033 1.306-.067 2zM10.1 3.779A2.412 2.412 0 0 1 12 3a2.412 2.412 0 0 1 1.9.779c1.205 1.339 1.2 4.146 1.1 5.114a.924.924 0 0 0 .01.106H8.984a.924.924 0 0 0 .01-.106c-.101-.968-.102-3.775 1.106-5.114zM7.083 11c.076.569.2 1.252.354 2H5.073c-.034-.693-.056-1.376-.066-2h2.076zm-.844 8h2.483c.108.562.191 1.061.237 1.457A6.514 6.514 0 0 1 6.239 19zm4.756 1.885A13.5 13.5 0 0 0 10.756 19h2.489a13.537 13.537 0 0 0-.239 1.881 8.218 8.218 0 0 1-1.006.071 8.657 8.657 0 0 1-1.005-.067zm4.049-.445c.046-.394.129-.886.235-1.441h2.489a6.656 6.656 0 0 1-2.724 1.442z">
+                            </path>
+                        </svg>
+                    </div>
+                </div>
+            </nav>
+            <div class="d-flex align-items-center justify-content-between body-text-normal text-black bottom-nav"
+                style="font-size: 13px; margin-left: 11.1rem; margin-right: 10.5rem; margin-top: -.5rem">
+                <a class="text-reset text-decoration-none nav-link-text">Everyday Finds</a>
+                <a class="text-reset text-decoration-none nav-link-text">Jewellery & Accessories</a>
+                <a class="text-reset text-decoration-none nav-link-text">Clothing & Shoes</a>
+                <a class="text-reset text-decoration-none nav-link-text">Home & Living</a>
+                <a class="text-reset text-decoration-none nav-link-text">Wedding & Party</a>
+                <a class="text-reset text-decoration-none nav-link-text">Toys & Entertainment</a>
+                <a class="text-reset text-decoration-none nav-link-text">Art & Collectibles</a>
+                <a class="text-reset text-decoration-none nav-link-text">Craft Supplies</a>
+                <a class="d-flex text-reset text-decoration-none pb-2 nav-link-text">
+                    <svg style="width: 16px; height: 12px; margin-top: 2px" xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 5 22 12" width="16" height="12" aria-hidden="true" focusable="false">
+                        <path d="M5,6A1,1,0,0,0,4,7v3H5v9a1,1,0,0,0,1,1h5V6H5Z"></path>
+                        <path
+                            d="M19,6H13.007A4.245,4.245,0,0,0,14.97,3.744a1.614,1.614,0,0,0-2.65-1.375,1.757,1.757,0,0,0-.315.324,1.753,1.753,0,0,0-.315-0.324A1.615,1.615,0,0,0,9.042,3.746,4.257,4.257,0,0,0,11.006,6H13V20h5a1,1,0,0,0,1-1V10h1V7A1,1,0,0,0,19,6Z">
+                        </path>
+                    </svg>
+                    <span style="padding-left: 2px;">Gifts</span>
+                </a>
+            </div>
+            <hr class="shadow-sm" style="margin-top: -1.5px; margin-bottom: 0; height: 2px">
+        </div>
+    </section>
+    <section class="mt-2">
+        <div>
+            <div style="background-color: #DDEBE3 !important">
+                <div style="margin-left: 11.1rem; margin-right: 10.5rem; margin-top: -.5rem">
+                    <h1 class="title-text-thin text-center" style="padding: 30px 12px 12px; font-size:32px">Because everyone deserves something as unique as they are.</h1>
+                    <h2 class="body-text-bold text-center" style="padding-bottom: 12px; font-size: 20px; margin-top: -7px">Shop special finds</h2>
+                </div>
+                <div class="d-flex align-items-center justify-content-between" style="margin-left: 11.1rem; margin-right: 10.5rem;">
+                    <div>
+                        <img class="img-circles" src="https://i.etsystatic.com/11739718/r/il/08b8ce/2723272174/il_300x300.2723272174_b22g.jpg" alt="">
+                        <div class="d-flex align-items-center justify-content-center">
+                            <p class="mt-3 text-center body-text-bold" style="font-size: 13px">Wall decor</p>
+                            <p class="mb-0 ml-2">&nbsp;→</p>
+                        </div>
+                    </div>
+                    <div>
+                        <img class="img-circles" src="https://i.etsystatic.com/15954102/r/il/66427d/1638021658/il_300x300.1638021658_1x3z.jpg" class="wt-circle wt-width-full" alt="">
+                        <div class="d-flex align-items-center justify-content-center">
+                            <p class="mt-3 text-center body-text-bold" style="font-size: 13px">Party supplies</p>
+                            <p class="mb-0 ml-2">&nbsp;→</p>
+                        </div>
+                    </div>
+                    <div>
+                        <img class="img-circles" src="https://i.etsystatic.com/5153755/r/il/ef3fd0/2811462928/il_300x300.2811462928_1bvb.jpg" class="wt-circle wt-width-full" alt="">
+                        <div class="d-flex align-items-center justify-content-center">
+                            <p class="mt-3 text-center body-text-bold" style="font-size: 13px">Barware</p>
+                            <p class="mb-0 ml-2">&nbsp;→</p>
+                        </div>
+                    </div>
+                    <div>
+                        <img class="img-circles" src="https://i.etsystatic.com/13074965/r/il/d26a7a/2815300272/il_300x300.2815300272_c6r5.jpg" class="wt-circle wt-width-full" alt="">
+                        <div class="d-flex align-items-center justify-content-center">
+                            <p class="mt-3 text-center body-text-bold" style="font-size: 13px">Linen clothing</p>
+                            <p class="mb-0 ml-2">&nbsp;→</p>
+                        </div>
+                    </div>
+                    <div>
+                        <img class="img-circles" src="https://i.etsystatic.com/19604334/r/il/1976c0/1952894827/il_300x300.1952894827_empr.jpg" class="wt-circle wt-width-full" alt="">
+                        <div class="d-flex align-items-center justify-content-center">
+                            <p class="mt-3 text-center body-text-bold" style="font-size: 13px">Wedding</p>
+                            <p class="mb-0 ml-2">&nbsp;→</p>
+                        </div>
+                    </div>
+                    <div>
+                        <img class="img-circles" src="https://i.etsystatic.com/6308789/r/il/0fe617/2869410081/il_300x300.2869410081_2rgp.jpg" class="wt-circle wt-width-full" alt="">
+                        <div class="d-flex align-items-center justify-content-center">
+                            <p class="mt-3 text-center body-text-bold" style="font-size: 13px">Carnelian Jewellery</p>
+                            <p class="mb-0 ml-2">&nbsp;→</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-left: 11.1rem; margin-right: 10.5rem;">
+                <h3 class="body-text-bold text-center my-4" style="font-size: 28px">Popular right now</h3>
+                <div class="d-flex align-items-center justify-content-between">
+                    <div style="overflow:hidden; max-width: 225px; max-height: 285px; padding-right: 10px" >
+                        <img class="square-pic w-100" src="dress1.jpeg" alt="">
+                        <p class="text-truncate mb-0" style="font-size: 14px">Organic Summer Wrap Linen Dress for Women/Spring Boho Dress/Organic Party Cocktail Dress/Linen Clothing Sustainable Gift for Her – ELIANA</p>
+                        <p class="mb-0" style="font-size: 13px;">ForeverMy</p>
+                        <div class="d-flex align-items-center">
+                            <svg style="width:14px" xmlns="http://www.w3.org/2000/svg" viewBox="3 3 18 18" aria-hidden="true" focusable="false"><path d="M19.985,10.36a0.5,0.5,0,0,0-.477-0.352H14.157L12.488,4.366a0.5,0.5,0,0,0-.962,0l-1.67,5.642H4.5a0.5,0.5,0,0,0-.279.911L8.53,13.991l-1.5,5.328a0.5,0.5,0,0,0,.741.6l4.231-2.935,4.215,2.935a0.5,0.5,0,0,0,.743-0.6l-1.484-5.328,4.306-3.074A0.5,0.5,0,0,0,19.985,10.36Z"></path></svg>
+                            <svg style="width:14px" xmlns="http://www.w3.org/2000/svg" viewBox="3 3 18 18" aria-hidden="true" focusable="false"><path d="M19.985,10.36a0.5,0.5,0,0,0-.477-0.352H14.157L12.488,4.366a0.5,0.5,0,0,0-.962,0l-1.67,5.642H4.5a0.5,0.5,0,0,0-.279.911L8.53,13.991l-1.5,5.328a0.5,0.5,0,0,0,.741.6l4.231-2.935,4.215,2.935a0.5,0.5,0,0,0,.743-0.6l-1.484-5.328,4.306-3.074A0.5,0.5,0,0,0,19.985,10.36Z"></path></svg>
+                            <svg style="width:14px" xmlns="http://www.w3.org/2000/svg" viewBox="3 3 18 18" aria-hidden="true" focusable="false"><path d="M19.985,10.36a0.5,0.5,0,0,0-.477-0.352H14.157L12.488,4.366a0.5,0.5,0,0,0-.962,0l-1.67,5.642H4.5a0.5,0.5,0,0,0-.279.911L8.53,13.991l-1.5,5.328a0.5,0.5,0,0,0,.741.6l4.231-2.935,4.215,2.935a0.5,0.5,0,0,0,.743-0.6l-1.484-5.328,4.306-3.074A0.5,0.5,0,0,0,19.985,10.36Z"></path></svg>
+                            <svg style="width:14px" xmlns="http://www.w3.org/2000/svg" viewBox="3 3 18 18" aria-hidden="true" focusable="false"><path d="M19.985,10.36a0.5,0.5,0,0,0-.477-0.352H14.157L12.488,4.366a0.5,0.5,0,0,0-.962,0l-1.67,5.642H4.5a0.5,0.5,0,0,0-.279.911L8.53,13.991l-1.5,5.328a0.5,0.5,0,0,0,.741.6l4.231-2.935,4.215,2.935a0.5,0.5,0,0,0,.743-0.6l-1.484-5.328,4.306-3.074A0.5,0.5,0,0,0,19.985,10.36Z"></path></svg>
+                            <svg style="width:14px" xmlns="http://www.w3.org/2000/svg" viewBox="3 3 18 18" aria-hidden="true" focusable="false"><path d="M19.985,10.36a0.5,0.5,0,0,0-.477-0.352H14.157L12.488,4.366a0.5,0.5,0,0,0-.962,0l-1.67,5.642H4.5a0.5,0.5,0,0,0-.279.911L8.53,13.991l-1.5,5.328a0.5,0.5,0,0,0,.741.6l4.231-2.935,4.215,2.935a0.5,0.5,0,0,0,.743-0.6l-1.484-5.328,4.306-3.074A0.5,0.5,0,0,0,19.985,10.36Z"></path></svg>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <p style="font-size: 16px" class="mb-0 body-text-bold">$21.99&nbsp;&nbsp;</p>
+                            <p style="font-size: 13px" class="mb-0 text-success body-text-normal"><span style="text-decoration: line-through;">$49.99</span> (45% off)</p>
+                        </div>
+                        <span class="body-text-bold" style="background-color:#D4E9D7; border-radius: 30px; font-size: 11px; padding: 2px 6px">FREE delivery</span>
+                    </div>
+                    <div style="overflow:hidden; max-width: 225px; max-height: 285px; padding-right: 10px; padding-left: 10px" >
+                        <img class="square-pic w-100" src="dress2.jpeg" alt="">
+                        <p class="text-truncate mb-0" style="font-size: 14px">Organic Summer Wrap Linen Dress for Women/Spring Boho Dress/Organic Party Cocktail Dress/Linen Clothing Sustainable Gift for Her – ELIANA</p>
+                        <p class="mb-0" style="font-size: 13px;">ForeverMy</p>
+                        <div class="d-flex align-items-center">
+                            <svg style="width:14px" xmlns="http://www.w3.org/2000/svg" viewBox="3 3 18 18" aria-hidden="true" focusable="false"><path d="M19.985,10.36a0.5,0.5,0,0,0-.477-0.352H14.157L12.488,4.366a0.5,0.5,0,0,0-.962,0l-1.67,5.642H4.5a0.5,0.5,0,0,0-.279.911L8.53,13.991l-1.5,5.328a0.5,0.5,0,0,0,.741.6l4.231-2.935,4.215,2.935a0.5,0.5,0,0,0,.743-0.6l-1.484-5.328,4.306-3.074A0.5,0.5,0,0,0,19.985,10.36Z"></path></svg>
+                            <svg style="width:14px" xmlns="http://www.w3.org/2000/svg" viewBox="3 3 18 18" aria-hidden="true" focusable="false"><path d="M19.985,10.36a0.5,0.5,0,0,0-.477-0.352H14.157L12.488,4.366a0.5,0.5,0,0,0-.962,0l-1.67,5.642H4.5a0.5,0.5,0,0,0-.279.911L8.53,13.991l-1.5,5.328a0.5,0.5,0,0,0,.741.6l4.231-2.935,4.215,2.935a0.5,0.5,0,0,0,.743-0.6l-1.484-5.328,4.306-3.074A0.5,0.5,0,0,0,19.985,10.36Z"></path></svg>
+                            <svg style="width:14px" xmlns="http://www.w3.org/2000/svg" viewBox="3 3 18 18" aria-hidden="true" focusable="false"><path d="M19.985,10.36a0.5,0.5,0,0,0-.477-0.352H14.157L12.488,4.366a0.5,0.5,0,0,0-.962,0l-1.67,5.642H4.5a0.5,0.5,0,0,0-.279.911L8.53,13.991l-1.5,5.328a0.5,0.5,0,0,0,.741.6l4.231-2.935,4.215,2.935a0.5,0.5,0,0,0,.743-0.6l-1.484-5.328,4.306-3.074A0.5,0.5,0,0,0,19.985,10.36Z"></path></svg>
+                            <svg style="width:14px" xmlns="http://www.w3.org/2000/svg" viewBox="3 3 18 18" aria-hidden="true" focusable="false"><path d="M19.985,10.36a0.5,0.5,0,0,0-.477-0.352H14.157L12.488,4.366a0.5,0.5,0,0,0-.962,0l-1.67,5.642H4.5a0.5,0.5,0,0,0-.279.911L8.53,13.991l-1.5,5.328a0.5,0.5,0,0,0,.741.6l4.231-2.935,4.215,2.935a0.5,0.5,0,0,0,.743-0.6l-1.484-5.328,4.306-3.074A0.5,0.5,0,0,0,19.985,10.36Z"></path></svg>
+                            <svg style="width:14px" xmlns="http://www.w3.org/2000/svg" viewBox="3 3 18 18" aria-hidden="true" focusable="false"><path d="M19.985,10.36a0.5,0.5,0,0,0-.477-0.352H14.157L12.488,4.366a0.5,0.5,0,0,0-.962,0l-1.67,5.642H4.5a0.5,0.5,0,0,0-.279.911L8.53,13.991l-1.5,5.328a0.5,0.5,0,0,0,.741.6l4.231-2.935,4.215,2.935a0.5,0.5,0,0,0,.743-0.6l-1.484-5.328,4.306-3.074A0.5,0.5,0,0,0,19.985,10.36Z"></path></svg>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <p style="font-size: 16px" class="mb-0 body-text-bold">$21.99&nbsp;&nbsp;</p>
+                            <p style="font-size: 13px" class="mb-0 text-success body-text-normal"><span style="text-decoration: line-through;">$49.99</span> (45% off)</p>
+                        </div>
+                        <span class="body-text-bold" style="background-color:#D4E9D7; border-radius: 30px; font-size: 11px; padding: 2px 6px">FREE delivery</span>
+                    </div>
+                    <div style="overflow:hidden; max-width: 225px; max-height: 285px; padding-right: 10px; padding-left: 10px" >
+                        <img class="square-pic w-100" src="dress3.jpeg" alt="">
+                        <p class="text-truncate mb-0" style="font-size: 14px">Organic Summer Wrap Linen Dress for Women/Spring Boho Dress/Organic Party Cocktail Dress/Linen Clothing Sustainable Gift for Her – ELIANA</p>
+                        <p class="mb-0" style="font-size: 13px;">ForeverMy</p>
+                        <div class="d-flex align-items-center">
+                            <svg style="width:14px" xmlns="http://www.w3.org/2000/svg" viewBox="3 3 18 18" aria-hidden="true" focusable="false"><path d="M19.985,10.36a0.5,0.5,0,0,0-.477-0.352H14.157L12.488,4.366a0.5,0.5,0,0,0-.962,0l-1.67,5.642H4.5a0.5,0.5,0,0,0-.279.911L8.53,13.991l-1.5,5.328a0.5,0.5,0,0,0,.741.6l4.231-2.935,4.215,2.935a0.5,0.5,0,0,0,.743-0.6l-1.484-5.328,4.306-3.074A0.5,0.5,0,0,0,19.985,10.36Z"></path></svg>
+                            <svg style="width:14px" xmlns="http://www.w3.org/2000/svg" viewBox="3 3 18 18" aria-hidden="true" focusable="false"><path d="M19.985,10.36a0.5,0.5,0,0,0-.477-0.352H14.157L12.488,4.366a0.5,0.5,0,0,0-.962,0l-1.67,5.642H4.5a0.5,0.5,0,0,0-.279.911L8.53,13.991l-1.5,5.328a0.5,0.5,0,0,0,.741.6l4.231-2.935,4.215,2.935a0.5,0.5,0,0,0,.743-0.6l-1.484-5.328,4.306-3.074A0.5,0.5,0,0,0,19.985,10.36Z"></path></svg>
+                            <svg style="width:14px" xmlns="http://www.w3.org/2000/svg" viewBox="3 3 18 18" aria-hidden="true" focusable="false"><path d="M19.985,10.36a0.5,0.5,0,0,0-.477-0.352H14.157L12.488,4.366a0.5,0.5,0,0,0-.962,0l-1.67,5.642H4.5a0.5,0.5,0,0,0-.279.911L8.53,13.991l-1.5,5.328a0.5,0.5,0,0,0,.741.6l4.231-2.935,4.215,2.935a0.5,0.5,0,0,0,.743-0.6l-1.484-5.328,4.306-3.074A0.5,0.5,0,0,0,19.985,10.36Z"></path></svg>
+                            <svg style="width:14px" xmlns="http://www.w3.org/2000/svg" viewBox="3 3 18 18" aria-hidden="true" focusable="false"><path d="M19.985,10.36a0.5,0.5,0,0,0-.477-0.352H14.157L12.488,4.366a0.5,0.5,0,0,0-.962,0l-1.67,5.642H4.5a0.5,0.5,0,0,0-.279.911L8.53,13.991l-1.5,5.328a0.5,0.5,0,0,0,.741.6l4.231-2.935,4.215,2.935a0.5,0.5,0,0,0,.743-0.6l-1.484-5.328,4.306-3.074A0.5,0.5,0,0,0,19.985,10.36Z"></path></svg>
+                            <svg style="width:14px" xmlns="http://www.w3.org/2000/svg" viewBox="3 3 18 18" aria-hidden="true" focusable="false"><path d="M19.985,10.36a0.5,0.5,0,0,0-.477-0.352H14.157L12.488,4.366a0.5,0.5,0,0,0-.962,0l-1.67,5.642H4.5a0.5,0.5,0,0,0-.279.911L8.53,13.991l-1.5,5.328a0.5,0.5,0,0,0,.741.6l4.231-2.935,4.215,2.935a0.5,0.5,0,0,0,.743-0.6l-1.484-5.328,4.306-3.074A0.5,0.5,0,0,0,19.985,10.36Z"></path></svg>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <p style="font-size: 16px" class="mb-0 body-text-bold">$21.99&nbsp;&nbsp;</p>
+                            <p style="font-size: 13px" class="mb-0 text-success body-text-normal"><span style="text-decoration: line-through;">$49.99</span> (45% off)</p>
+                        </div>
+                        <span class="body-text-bold" style="background-color:#D4E9D7; border-radius: 30px; font-size: 11px; padding: 2px 6px">FREE delivery</span>
+                    </div>
+                    <div style="overflow:hidden; max-width: 225px; max-height: 285px; padding-right: 10px; padding-left: 10px" >
+                        <img class="square-pic w-100" src="dress4.jpeg" alt="">
+                        <p class="text-truncate mb-0" style="font-size: 14px">Organic Summer Wrap Linen Dress for Women/Spring Boho Dress/Organic Party Cocktail Dress/Linen Clothing Sustainable Gift for Her – ELIANA</p>
+                        <p class="mb-0" style="font-size: 13px;">ForeverMy</p>
+                        <div class="d-flex align-items-center">
+                            <svg style="width:14px" xmlns="http://www.w3.org/2000/svg" viewBox="3 3 18 18" aria-hidden="true" focusable="false"><path d="M19.985,10.36a0.5,0.5,0,0,0-.477-0.352H14.157L12.488,4.366a0.5,0.5,0,0,0-.962,0l-1.67,5.642H4.5a0.5,0.5,0,0,0-.279.911L8.53,13.991l-1.5,5.328a0.5,0.5,0,0,0,.741.6l4.231-2.935,4.215,2.935a0.5,0.5,0,0,0,.743-0.6l-1.484-5.328,4.306-3.074A0.5,0.5,0,0,0,19.985,10.36Z"></path></svg>
+                            <svg style="width:14px" xmlns="http://www.w3.org/2000/svg" viewBox="3 3 18 18" aria-hidden="true" focusable="false"><path d="M19.985,10.36a0.5,0.5,0,0,0-.477-0.352H14.157L12.488,4.366a0.5,0.5,0,0,0-.962,0l-1.67,5.642H4.5a0.5,0.5,0,0,0-.279.911L8.53,13.991l-1.5,5.328a0.5,0.5,0,0,0,.741.6l4.231-2.935,4.215,2.935a0.5,0.5,0,0,0,.743-0.6l-1.484-5.328,4.306-3.074A0.5,0.5,0,0,0,19.985,10.36Z"></path></svg>
+                            <svg style="width:14px" xmlns="http://www.w3.org/2000/svg" viewBox="3 3 18 18" aria-hidden="true" focusable="false"><path d="M19.985,10.36a0.5,0.5,0,0,0-.477-0.352H14.157L12.488,4.366a0.5,0.5,0,0,0-.962,0l-1.67,5.642H4.5a0.5,0.5,0,0,0-.279.911L8.53,13.991l-1.5,5.328a0.5,0.5,0,0,0,.741.6l4.231-2.935,4.215,2.935a0.5,0.5,0,0,0,.743-0.6l-1.484-5.328,4.306-3.074A0.5,0.5,0,0,0,19.985,10.36Z"></path></svg>
+                            <svg style="width:14px" xmlns="http://www.w3.org/2000/svg" viewBox="3 3 18 18" aria-hidden="true" focusable="false"><path d="M19.985,10.36a0.5,0.5,0,0,0-.477-0.352H14.157L12.488,4.366a0.5,0.5,0,0,0-.962,0l-1.67,5.642H4.5a0.5,0.5,0,0,0-.279.911L8.53,13.991l-1.5,5.328a0.5,0.5,0,0,0,.741.6l4.231-2.935,4.215,2.935a0.5,0.5,0,0,0,.743-0.6l-1.484-5.328,4.306-3.074A0.5,0.5,0,0,0,19.985,10.36Z"></path></svg>
+                            <svg style="width:14px" xmlns="http://www.w3.org/2000/svg" viewBox="3 3 18 18" aria-hidden="true" focusable="false"><path d="M19.985,10.36a0.5,0.5,0,0,0-.477-0.352H14.157L12.488,4.366a0.5,0.5,0,0,0-.962,0l-1.67,5.642H4.5a0.5,0.5,0,0,0-.279.911L8.53,13.991l-1.5,5.328a0.5,0.5,0,0,0,.741.6l4.231-2.935,4.215,2.935a0.5,0.5,0,0,0,.743-0.6l-1.484-5.328,4.306-3.074A0.5,0.5,0,0,0,19.985,10.36Z"></path></svg>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <p style="font-size: 16px" class="mb-0 body-text-bold">$21.99&nbsp;&nbsp;</p>
+                            <p style="font-size: 13px" class="mb-0 text-success body-text-normal"><span style="text-decoration: line-through;">$49.99</span> (45% off)</p>
+                        </div>
+                        <span class="body-text-bold" style="background-color:#D4E9D7; border-radius: 30px; font-size: 11px; padding: 2px 6px">FREE delivery</span>
+                    </div>
+                    <div style="overflow:hidden; max-width: 225px; max-height: 285px; padding-right: 10px; padding-left: 10px" >
+                        <img class="square-pic w-100" src="dress5.jpeg" alt="">
+                        <p class="text-truncate mb-0" style="font-size: 14px">Organic Summer Wrap Linen Dress for Women/Spring Boho Dress/Organic Party Cocktail Dress/Linen Clothing Sustainable Gift for Her – ELIANA</p>
+                        <p class="mb-0" style="font-size: 13px;">ForeverMy</p>
+                        <div class="d-flex align-items-center">
+                            <svg style="width:14px" xmlns="http://www.w3.org/2000/svg" viewBox="3 3 18 18" aria-hidden="true" focusable="false"><path d="M19.985,10.36a0.5,0.5,0,0,0-.477-0.352H14.157L12.488,4.366a0.5,0.5,0,0,0-.962,0l-1.67,5.642H4.5a0.5,0.5,0,0,0-.279.911L8.53,13.991l-1.5,5.328a0.5,0.5,0,0,0,.741.6l4.231-2.935,4.215,2.935a0.5,0.5,0,0,0,.743-0.6l-1.484-5.328,4.306-3.074A0.5,0.5,0,0,0,19.985,10.36Z"></path></svg>
+                            <svg style="width:14px" xmlns="http://www.w3.org/2000/svg" viewBox="3 3 18 18" aria-hidden="true" focusable="false"><path d="M19.985,10.36a0.5,0.5,0,0,0-.477-0.352H14.157L12.488,4.366a0.5,0.5,0,0,0-.962,0l-1.67,5.642H4.5a0.5,0.5,0,0,0-.279.911L8.53,13.991l-1.5,5.328a0.5,0.5,0,0,0,.741.6l4.231-2.935,4.215,2.935a0.5,0.5,0,0,0,.743-0.6l-1.484-5.328,4.306-3.074A0.5,0.5,0,0,0,19.985,10.36Z"></path></svg>
+                            <svg style="width:14px" xmlns="http://www.w3.org/2000/svg" viewBox="3 3 18 18" aria-hidden="true" focusable="false"><path d="M19.985,10.36a0.5,0.5,0,0,0-.477-0.352H14.157L12.488,4.366a0.5,0.5,0,0,0-.962,0l-1.67,5.642H4.5a0.5,0.5,0,0,0-.279.911L8.53,13.991l-1.5,5.328a0.5,0.5,0,0,0,.741.6l4.231-2.935,4.215,2.935a0.5,0.5,0,0,0,.743-0.6l-1.484-5.328,4.306-3.074A0.5,0.5,0,0,0,19.985,10.36Z"></path></svg>
+                            <svg style="width:14px" xmlns="http://www.w3.org/2000/svg" viewBox="3 3 18 18" aria-hidden="true" focusable="false"><path d="M19.985,10.36a0.5,0.5,0,0,0-.477-0.352H14.157L12.488,4.366a0.5,0.5,0,0,0-.962,0l-1.67,5.642H4.5a0.5,0.5,0,0,0-.279.911L8.53,13.991l-1.5,5.328a0.5,0.5,0,0,0,.741.6l4.231-2.935,4.215,2.935a0.5,0.5,0,0,0,.743-0.6l-1.484-5.328,4.306-3.074A0.5,0.5,0,0,0,19.985,10.36Z"></path></svg>
+                            <svg style="width:14px" xmlns="http://www.w3.org/2000/svg" viewBox="3 3 18 18" aria-hidden="true" focusable="false"><path d="M19.985,10.36a0.5,0.5,0,0,0-.477-0.352H14.157L12.488,4.366a0.5,0.5,0,0,0-.962,0l-1.67,5.642H4.5a0.5,0.5,0,0,0-.279.911L8.53,13.991l-1.5,5.328a0.5,0.5,0,0,0,.741.6l4.231-2.935,4.215,2.935a0.5,0.5,0,0,0,.743-0.6l-1.484-5.328,4.306-3.074A0.5,0.5,0,0,0,19.985,10.36Z"></path></svg>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <p style="font-size: 16px" class="mb-0 body-text-bold">$21.99&nbsp;&nbsp;</p>
+                            <p style="font-size: 13px" class="mb-0 text-success body-text-normal"><span style="text-decoration: line-through;">$49.99</span> (45% off)</p>
+                        </div>
+                        <span class="body-text-bold" style="background-color:#D4E9D7; border-radius: 30px; font-size: 11px; padding: 2px 6px">FREE delivery</span>
+                    </div>
+                    <div style="overflow:hidden; max-width: 225px; max-height: 285px; padding-left: 10px" >
+                        <img class="square-pic w-100" src="dress6.jpeg" alt="">
+                        <p class="text-truncate mb-0" style="font-size: 14px">Organic Summer Wrap Linen Dress for Women/Spring Boho Dress/Organic Party Cocktail Dress/Linen Clothing Sustainable Gift for Her – ELIANA</p>
+                        <p class="mb-0" style="font-size: 13px;">ForeverMy</p>
+                        <div class="d-flex align-items-center">
+                            <svg style="width:14px" xmlns="http://www.w3.org/2000/svg" viewBox="3 3 18 18" aria-hidden="true" focusable="false"><path d="M19.985,10.36a0.5,0.5,0,0,0-.477-0.352H14.157L12.488,4.366a0.5,0.5,0,0,0-.962,0l-1.67,5.642H4.5a0.5,0.5,0,0,0-.279.911L8.53,13.991l-1.5,5.328a0.5,0.5,0,0,0,.741.6l4.231-2.935,4.215,2.935a0.5,0.5,0,0,0,.743-0.6l-1.484-5.328,4.306-3.074A0.5,0.5,0,0,0,19.985,10.36Z"></path></svg>
+                            <svg style="width:14px" xmlns="http://www.w3.org/2000/svg" viewBox="3 3 18 18" aria-hidden="true" focusable="false"><path d="M19.985,10.36a0.5,0.5,0,0,0-.477-0.352H14.157L12.488,4.366a0.5,0.5,0,0,0-.962,0l-1.67,5.642H4.5a0.5,0.5,0,0,0-.279.911L8.53,13.991l-1.5,5.328a0.5,0.5,0,0,0,.741.6l4.231-2.935,4.215,2.935a0.5,0.5,0,0,0,.743-0.6l-1.484-5.328,4.306-3.074A0.5,0.5,0,0,0,19.985,10.36Z"></path></svg>
+                            <svg style="width:14px" xmlns="http://www.w3.org/2000/svg" viewBox="3 3 18 18" aria-hidden="true" focusable="false"><path d="M19.985,10.36a0.5,0.5,0,0,0-.477-0.352H14.157L12.488,4.366a0.5,0.5,0,0,0-.962,0l-1.67,5.642H4.5a0.5,0.5,0,0,0-.279.911L8.53,13.991l-1.5,5.328a0.5,0.5,0,0,0,.741.6l4.231-2.935,4.215,2.935a0.5,0.5,0,0,0,.743-0.6l-1.484-5.328,4.306-3.074A0.5,0.5,0,0,0,19.985,10.36Z"></path></svg>
+                            <svg style="width:14px" xmlns="http://www.w3.org/2000/svg" viewBox="3 3 18 18" aria-hidden="true" focusable="false"><path d="M19.985,10.36a0.5,0.5,0,0,0-.477-0.352H14.157L12.488,4.366a0.5,0.5,0,0,0-.962,0l-1.67,5.642H4.5a0.5,0.5,0,0,0-.279.911L8.53,13.991l-1.5,5.328a0.5,0.5,0,0,0,.741.6l4.231-2.935,4.215,2.935a0.5,0.5,0,0,0,.743-0.6l-1.484-5.328,4.306-3.074A0.5,0.5,0,0,0,19.985,10.36Z"></path></svg>
+                            <svg style="width:14px" xmlns="http://www.w3.org/2000/svg" viewBox="3 3 18 18" aria-hidden="true" focusable="false"><path d="M19.985,10.36a0.5,0.5,0,0,0-.477-0.352H14.157L12.488,4.366a0.5,0.5,0,0,0-.962,0l-1.67,5.642H4.5a0.5,0.5,0,0,0-.279.911L8.53,13.991l-1.5,5.328a0.5,0.5,0,0,0,.741.6l4.231-2.935,4.215,2.935a0.5,0.5,0,0,0,.743-0.6l-1.484-5.328,4.306-3.074A0.5,0.5,0,0,0,19.985,10.36Z"></path></svg>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <p style="font-size: 16px" class="mb-0 body-text-bold">$21.99&nbsp;&nbsp;</p>
+                            <p style="font-size: 13px" class="mb-0 text-success body-text-normal"><span style="text-decoration: line-through;">$49.99</span> (45% off)</p>
+                        </div>
+                        <span class="body-text-bold" style="background-color:#D4E9D7; border-radius: 30px; font-size: 11px; padding: 2px 6px">FREE delivery</span>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-left: 11.1rem; margin-right: 10.5rem;">
+                <h3 class="body-text-bold text-center my-5" style="font-size: 28px">Discover unique hand-picked items</h3>
+            </div>
+            <div style="margin-left: 11.1rem; margin-right: 10.5rem;">
+                <div class="d-flex align-items-center">
+                    <p class="mb-0 body-text-bold" style="font-size: 16px">Shop our selections&nbsp;&nbsp;</p>
+                    <p class="mb-0 body-text-normal" style="font-size: 13px">Items hand-picked by our editors</p>
+                </div>
+                <div class="d-flex align-items-center justify-content-between">
+                    <div class="border" style="overflow:hidden; max-width: 225px; max-height: 285px; margin-right: 10px; border-radius: 15px" >
+                        <img class="w-100 square-pic" src="https://i.etsystatic.com/17343612/r/il/ffd1e4/1533119085/il_300x300.1533119085_390f.jpg">
+                        <p class="mb-0 px-2 pt-2 pb-4 body-text-bold" style="min-height: 44px;">Party Suppies</p>
+                    </div>
+                    <div class="border" style="overflow:hidden; max-width: 225px; max-height: 285px; margin-left: 10px; margin-right: 10px; border-radius: 15px" >
+                        <img class="w-100 square-pic" src="https://i.etsystatic.com/20482270/c/2194/1744/384/234/il/1e32a0/3118275438/il_340x270.3118275438_mc2n.jpg">
+                        <p class="mb-0 px-2 pt-2 pb-4 body-text-bold" style="min-height: 44px;">Gifts for him</p>
+                    </div>
+                    <div class="border" style="overflow:hidden; max-width: 225px; max-height: 285px; margin-left: 10px; margin-right: 10px; border-radius: 15px" >
+                        <img class="w-100 square-pic" src="https://i.etsystatic.com/19007558/d/il/fd7cb2/2111624709/il_340x270.2111624709_owvi.jpg?version=0">
+                        <p class="mb-0 px-2 pt-2 pb-4 body-text-bold" style="min-height: 44px;">Gifts for her</p>
+                    </div>
+                    <div class="border" style="overflow:hidden; max-width: 225px; max-height: 285px; margin-left: 10px; margin-right: 10px; border-radius: 15px" >
+                        <img class="w-100 square-pic" src="https://i.etsystatic.com/18811320/d/il/8ff7c2/3156991510/il_340x270.3156991510_mou9.jpg?version=0">
+                        <p class="mb-0 px-2 pt-2 pb-4 body-text-bold" style="min-height: 44px;">Personalized gift ideas</p>
+                    </div>
+                    <div class="border" style="overflow:hidden; max-width: 225px; max-height: 285px; margin-left: 10px; margin-right: 10px; border-radius: 15px" >
+                        <img class="w-100 square-pic" src="https://i.etsystatic.com/17654326/d/il/db20ce/2564720194/il_340x270.2564720194_5rux.jpg?version=0">
+                        <p class="mb-0 px-2 pt-2 pb-4 body-text-bold" style="min-height: 44px;">Wedding gifts</p>
+                    </div>
+                    <div class="border" style="overflow:hidden; max-width: 225px; max-height: 285px; margin-left: 10px; border-radius: 15px" >
+                        <img class="w-100 square-pic" src="https://i.etsystatic.com/21416397/d/il/01aae8/3179946974/il_340x270.3179946974_5utr.jpg?version=0">
+                        <p class="mb-0 px-2 pt-2 pb-4 body-text-bold" style="min-height: 44px;">Housewarming gifts</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section
+        style="background-color: #FDEBD2 !important;min-height: 300px; max-height: 600px; position:relative; overflow: hidden; padding-bottom: 3rem">
+        <div style="margin-left: 11.1rem; margin-right: 10.5rem;">
+            <h3 class="body-text-bold text-center pt-5" style="font-size: 28px">What is Etsy?</h3>
+            <p class="body-text-normal text-center mt-2 mb-5" style="font-size: 16px; text-decoration: underline">Read our
+                wonderfully weird story</p>
+            <div class="row text-center">
+                <div class="col-12 col-md-4 px-4 mb-2">
+                    <h3 class="title-text-thin" style="font-size: 32px">A community doing good</h3>
+                    <p class="body-text-normal mb-0" style="font-size: 15px; line-height: 28px;">Etsy is a global online
+                        marketplace, where people come together to make, sell, buy and collect unique items. We’re also a
+                        community pushing for positive change for small businesses, people, and the planet. </p>
+                    <span class="body-text-bold"
+                        style="text-decoration: underline;text-decoration-style: dashed;text-underline-position: under;">Here
+                        are some of the ways we’re making a positive impact, together.</span>
+                </div>
+                <div class="col-12 col-md-4 px-4 mb-2">
+                    <h3 class="title-text-thin" style="font-size: 32px">Support independent creators</h3>
+                    <p class="body-text-normal" style="font-size: 15px">There’s no Etsy warehouse – just millions of people
+                        selling the things they love. We make the whole process easy, helping you connect directly with
+                        makers to find something extraordinary.</p>
+                </div>
+                <div class="col-12 col-md-4 px-4 mb-2">
+                    <h3 class="title-text-thin" style="font-size: 32px">Peace of mind</h3>
+                    <p class="body-text-normal" style="font-size: 15px">Your privacy is the highest priority of our
+                        dedicated team. And if you ever need assistance, we are always ready to step in for support.</p>
+                </div>
+            </div>
+            <h3 class="body-text-bold text-center pt-5 pb-4" style="font-size: 20px">Have a question? Well, we’ve got some
+                answers.</h3>
+            <span class="body-text-bold p"
+                style="font-size: 16px; position: relative; left: 44%; border-radius: 30px; border: 2px solid black; padding: .75rem 1.1rem">Go
+                to Help Center</span>
+    
+            <svg style="position: absolute; top: -2rem; right: 6rem" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="200" height="200"
+                version="1.1" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet" class="" aria-hidden="true"
+                focusable="false">
+                <defs id="what-is-etsy-right-top-Defs1021">
+                    <clipPath id="what-is-etsy-right-top-ClipPath1033">
+                        <path id="what-is-etsy-right-top-Path1023"
+                            d="M126.4,161c-3-3.7-9-12.5-9-12.5L114,141c0,0-4-12.4-4.3-17.1c-0.6-9.3,1.9-16,5.6-24.5     c7.2-16.3,21.8-27.1,40.5-31.8l3.8-1.5l1.2-1.4l-14.5-48.9l-4.9-12.1c-2.9,0.5-8.4,2.9-11.1,3.6c-12.1,3.2-22,8.6-32.1,13.9     C87,27.8,69.3,45.2,69.3,45.2S52.8,62.3,47.8,74.8c-1.6,4.7-3,9.5-4,14.3C42,96,40.7,111.6,39.4,119c-1.4,8,2.8,27.8,2.8,27.8     s3,11.6,5.7,18.7c4.4,11.3,10.8,21.8,18.9,30.9c0,0,24.3-12.4,26.2-13.9s16.4-9,17.6-9.6c1.2-0.6,12.6-4.4,12.6-4.4l6-2.8     c0.2-0.3,0.3-0.7,0.4-1.1C129.6,164.4,126.5,161,126.4,161"
+                            fill="#faa129" class=""></path>
+                    </clipPath>
+                </defs>
+                <g id="what-is-etsy-right-top-G1022" transform="matrix(1,0,0,1,0,0)">
+                    <image id="what-is-etsy-right-top-Image1024" width="200" height="200" alt=""
+                        transform="matrix(1,0,0,1,0,0)" clip-path="url(&quot;#what-is-etsy-right-top-ClipPath1033&quot;)"
+                        xlink:href="https://img0.etsystatic.com/site-assets/brand-refresh/textures/custom/what_is_etsy_yellow.jpg"
+                        style="transform-origin: 100px 100px"></image>
+                </g>
+            </svg>
+            <svg style="position: absolute; bottom: 0; right: -6rem" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="300" height="200"
+                version="1.1" viewBox="0 0 300 200" preserveAspectRatio="xMidYMid meet" class="" aria-hidden="true"
+                focusable="false">
+                <defs id="what-is-etsy-right-bottom-Defs1033">
+                    <clipPath id="what-is-etsy-right-bottom-ClipPath1045">
+                        <path id="what-is-etsy-right-bottom-Path1035"
+                            d="M-1,46.5l8.6,52.6l9.9,59.8l72.9-6l106.4-7.3l4.1-47L201,41l-106,2L-1,46.5z" fill="#f1641e"
+                            class=""></path>
+                    </clipPath>
+                </defs>
+                <g id="what-is-etsy-right-bottom-G1034" transform="matrix(1,0,0,1,100,100)">
+                    <image id="what-is-etsy-right-bottom-Image1036" width="200" height="200" alt=""
+                        transform="matrix(1.378730854217091,-0.24310744873370377,0.24310744873370377,1.378730854217091,0,0)"
+                        clip-path="url(&quot;#what-is-etsy-right-bottom-ClipPath1045&quot;)"
+                        xlink:href="https://img0.etsystatic.com/site-assets/brand-refresh/textures/custom/what_is_etsy_orange2.jpg"
+                        style="transform-origin: 140px 140px"></image>
+                </g>
+            </svg>
+            <svg style="position: absolute; bottom: 0; left: 0" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="200" height="200"
+                version="1.1" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet" class="" aria-hidden="true"
+                focusable="false">
+                <defs id="what-is-etsy-left-blue-dark-Defs1047">
+                    <clipPath id="what-is-etsy-left-blue-dark-ClipPath1059">
+                        <path id="what-is-etsy-left-blue-dark-Path1049"
+                            d="M192.9,74.8c-2.1-5.3-3.9-10.8-5.3-16.4c-3.8-16.9-24.3-38.6-33.2-46.7     c-8.9-8.1-26.8-9.5-38.6-7.5C93.6,7.8,71.4,9,51.9,21.2C47.3,24.1,27.7,39,22.7,43.3C10.7,53.7,2.5,66.1,2.2,83.6     c-1,8.3,3.3,17.4,2.7,26.4c-1.6,26.1,13.6,45.1,26.8,65c7.5,11.3,60.8,22.8,70.8,21.6c14.7-1.8,29.1-5.4,42.8-10.9     c11.2-4.2,20.5-12.4,26.1-23.1c1.8-3,3.8-5.9,6.2-8.5c19.6-23.7,25.8-49.9,15.5-79.3"
+                            fill="#232347" class=""></path>
+                    </clipPath>
+                </defs>
+                <g id="what-is-etsy-left-blue-dark-G1048" transform="matrix(1,0,0,1,50,20)">
+                    <image id="what-is-etsy-left-blue-dark-Image1050" width="200" height="200" alt=""
+                        transform="matrix(0.3,0,0,0.3,0,0)"
+                        clip-path="url(&quot;#what-is-etsy-left-blue-dark-ClipPath1059&quot;)"
+                        xlink:href="https://img0.etsystatic.com/site-assets/brand-refresh/textures/custom/what_is_etsy_blue2.jpg"
+                        style="transform-origin: 100px 100px"></image>
+                </g>
+            </svg>
+        </div>
+    </section>
+    <section>
+        <div style="position: relative" class="h-100">
+            <svg style="margin-top: 2rem" fill="#D7E6F5" xmlns="http://www.w3.org/2000/svg"
+                class="wt-fill-denim-tint wt-width-full" viewBox="0 0 1280 30" preserveAspectRatio="xMidYMid slice"
+                aria-hidden="true" focusable="false">
+                <path
+                    d="M1280 30h-8.1c-5.7 0-37-10.9-37.4-10.7-2.2 1.2-17.6-.8-19.9-4.1 0 0-9.8-3.3-10.3-3.3-1.3 0-12.6 3-13 2.5-.7-.7-13.8-3.7-13.8-5.3-2.3 1.3-21.2-7.8-23.4-6.7-1-.8-2.2-1.5-3.3-2.4-1.8 1.9-3.3 3.4-4.7 4.9-2.7-.8-4.8-1.4-7.1-2.1-.5.1-1 .3-1.5.5-4 1.3-5.3 1-7.3-1.3-1.7-2.1-5.3-2.2-8.1-.8-2 1-4.6 2.6-6.5 2.3-4.5-.7-6 1.1-8.1 2.6-1.5 1.1-3.1 2.1-4.6 3.1-1.8-.8-3.5-1.2-5.3-2-.3.8-.7 1.3-.8 2-.5 0-.8 0-1.2-.1V3.5c-2 .8-3.5 1.2-4.8 1.8-1.3-.8-2.3-1.6-3.5-2.4-5.1 1.2-10.1 2-15.3.1-.8-.3-2.2-.3-3-.1-1.2.3-2.2 1-3.3 1.6-1.2-.3-2.3-.8-3.8-1.1-1.7 1.1-3 2.9-6.5 1.6-.8-.3-2.3.1-3.5.3-4 .8-7.8 1.4-11.9 2-1.5.2-3-.2-4.7-.3-1-.1-1.8-.2-2.8-.2-6-.3-11.8 2.3-17.8.1-.5-.2-1.3-.2-1.8-.1-3.8 1.6-8.3 1.2-12.5 1.3-1 0-2.2.5-3.1.9-1.8.8-9.5 1.5-11.5 1.1-4.5-.8-8.1-.3-10.1 2.3-12.8-1.6-12.8-1.6-17.1.9-2.3-.4-6-1.6-7.1-1.1-4.7 2.4-7 .2-9.8-1.4-5 1.1-10.8-.8-15.8 1.4-7.3-2.7-14.9-2.7-22.9-.2-5-3.7-9.6-3.8-13.8 0-.3-1.3-.7-2.5-1-3.8-3.3.8-6.1 1.1-8.6 1.8-2.7.7-6 2.3-7.5 1.9-4.2-1.3-5.3 1.8-9 1.4-1-.9-2.3-2.2-4-3.5-1.3.3-2.8.7-4 1-3.5 1.1-6.8 2-10.3 0-.5-.3-1.8-.2-2.8-.1-2.5.2-4.8.7-7.5.9-.8.9-1.7 1.9-2.3 2.9-8.5-1.1-16.4-2.6-24.7-.4-.3.1-1.2-.1-1.7-.3-2.3-1.2-3.7-.3-5.1.8-1.2.7-2.7 1.8-4 1.8-7.3.2-14.8-.4-22.1.3-3 .3-6.8-.3-9 .7-3.3 1.5-6 .9-9.1.5-2.7-.4-5-.9-7.1-2.1-2-1-4.3-.5-4.6 1.1-.3 1.5-1.8 2.3-3.7 2.1-3.3-.8-6.8-.3-10-1.8-4.8-2.1-10.6-2.7-16.3-.7-1.7.7-3.3 1-5 1.6-.3.1-.8.1-1.5.1-1.2-.7-2.3-1.2-3.5-1.9-2 1.8-4.6 1.8-7.1.9-2.8-.8-5.6-1.3-8.8-.9-2.7.3-5.5.5-8.3.7-2 .1-4.5.8-5.8-.9-.2-.3-1.5-.4-2.2-.3-3.7.7-7.3 1.5-11 2.2-.2-.3-.5-.5-.5-.7-.2-.3-.2-.8-.2-.8-1.8.5-3.7 1.2-5.6 1.4-1.8.2-4.7-.7-5.8-.1-3.8 1.9-8.1 1.2-12.3 1.9-2.2-2.5-2.2-2.5-5.8-.9-.7.3-1.5.5-2.3.5-3-.1-6.1-.2-9.1-.5-2.7-.3-5.6-.5-7.6-1.4s-3.8-1.3-6.1-1.2c-4.6.2-9.3.3-13.9.5-4.3.2-8.6.4-14.3.8-1.7-.5-4.7-1.2-7.5-2.2-3.7-1.4-7.1-1.4-10.8.1-1.7.7-4.5 1.6-5.5 1.2-3.3-1.4-1.7 1.3-3 1.1-1.8-.3-3.7-.9-5.1-.7-3.7.4-7.1-.2-10.8-.1-5 .1-10 0-11.6 4.1-5-2.4-9.1-1-13 .5-1.3-.8-2.2-1.4-2.8-1.9-1.7.5-3 1.3-4.2 1.1-2.7-.3-5-1.1-7.3-1.8-1 .4-2 1-3 1.1-5.1.4-10.3.4-15.3.9-2 .2-5-.5-6.6 1.1-.3.3-2.8.4-3.3 0-2.2-1.9-5.1-1.2-8-1-3.3.3-6.6.5-9.8-.7-1.5-.5-4-.8-5.3-.2-4.6 1.9-9.5 2.6-14.9 3.3-5.6.8-9.8-.5-13.9-2.2-1.7 1-3.3 1.6-5.5.4-4.8-3-10.1-2.1-15.6-.7-2.8-.8-5.5-3.3-9.6-1.2-5.6-.8-11.1-.7-16.4 1-.7.2-2 .1-2.3-.2-1.7-1-3.5-1.8-6-1.6-1.2-2.5-4-.9-6.1-.8-2.5 0-5.1 1-7.1.5-2.5-.7-5-.4-7.3-.8-2.8-.4-6 .8-9 .8-5.3.3-10 1.4-13.9 3.6-.8.4-1.7.9-2.5.9-3.8.3-7.6.7-11.5.4-3.7-.3-7.3-.7-11.1-.1-1 .1-2.3-.5-3.3-.9-2.5-1-4.8-1.9-8.1-1.1-2.2.4-4.2 0-3.8-1.8-2.3.1-5 .8-7.1.3-2-.4-3-.9-4.5.5-.7.5-3.2.1-4.6.5-4.2.9-8.1 2.4-12.3 3-2.2.3-5.5.3-7.5-1.3-3.5-2.6-5.3-2.4-11-.9-1.3.3-2.8.8-4.3.9-3.3.2-6.8.3-10.8.5-2-2.9-6-5.2-11.5-7v3.1c-4.5-3.8-10.8-3-16.1-4.4-4.5 1.8-9 3.4-14.6 5.5-5-1-9.6-3.1-15.3-1.2-1 .3-3.2.1-4-.4-3.2-1.9-7.5-1.9-11-3.2-4.2-1.6-8.8-2.9-13.3-4.2-1.2-.3-11.8 2.4-13 2.4-6.6 0-20.3 11.5-25.6 9.8-6.1-2-13 .2-20.1-1-8.1 2.3-15.3 7.2-19.8 7.7H0M172.9 20c.1 0 .3 0 0 0z">
+                </path>
+            </svg>
+            <div class="pt-3" style="background-color: #D7E6F5; height: 13rem">
+                <p class="text-center body-text-bold">Yes! Send me exclusive offers, unique gift ideas, and personalised tips
+                    for shopping and selling on Etsy.</p>
+                <div class="text-center pb-5">
+                    <input
+                        style="padding: .5rem 1rem; border-top-left-radius: 30px; border-bottom-left-radius: 30px; width: 23.5%; border: 1px solid grey"
+                        type="text" placeholder="Enter your email">
+                    <button class="btn body-text-bold"
+                        style="border: 1px solid grey; background-color: white;margin-left: -10px;margin-top: -4px;height: 2.64rem;border-top-right-radius: 30px;border-bottom-right-radius: 30px;border-top-left-radius: 0;border-bottom-left-radius: 0;border-left: 0;border-bottom-right-radius: 30px;">Subscribe</button>
+                </div>
+                <svg style="text-align: center;margin-left: -7rem; margin-top: -10rem; position: relative; width: 100%" transform="translate(-100, -100) rotate(180, 100, 100)" fill="#4D6BC6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 48" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M839 47l7-1 4-1 2 1h4l3-1 3-1 2 1 1-1 8-1 2 1h4l5-1 2-1h5l2-1 1 1h6l2-1h9l2-1h4l3-1h27v1h10l1 1h3l3-1 1 1h11l6 2v-1h4l1-1h10l2 1h7l2 1h3l2 1h2l1-1h6v1h2l1-1 1 1h1l3 1h7l1 1h6l1-1h3l1 1 5-1h17l4-1h4l3 1h2l1 1h19l2-1h5v1l1-1h2l1 1h9l1-1 1 1 4-1h12l1-1h4l1-1h2l3-1h5v-1h11l1 1h6l2 1h3l1-1 2-1h1l2-1h5l2-1 2 1h2l2 1h5l1 1h2l2 1h1l1-2 1-1 2-1h10l2 1h6l1 1h2l1-2 2-1 1-1 2-1h12l1 1h19l1-1h6l1-1 3 1h7l2 2 1 1 7-1 1-1 2-1h4l2-1 1-1h6l1-1 2 1 3-1h9l1-1h2l2-1h2l1-1h1l4-1 3 1h1l1-1h2l1-1 2-1h2l2-1v-1h12l3-1h2l2-1h2l3 1 1-1 1-1h14V0H0v2h2v1-1h10l1 1 2-1h3l1 1h1V2h4l2 1v1l1-1h1l1 1V3l4 1h4l1 1h2l1-1h-1l1-1 1 1 2 1h1l2-1h7l2 1h9l2 1h3l1-1h4l2 1 2 1 2-1h8l1-1 1 1h4l2 1 3-1h10l1 1h3l3 1h1V7l2 1h4l1 1h1l1-1h5l3 1h2l1-1 1 1 1-1 2 1h5l1 1h1V8h1l2 1 1 1h4-1l1-1h1l2 1h2l1-1h1l3 1h20v1-1l1 1h2l2 1h2l2 1 2 1h6l1-1h4l1-1h2l5-1 3 1h9l1-1h2l1-1h4v1h3l4-2 3-1h2l1-1h6l8 1 3 1h3l2 1 1-1h1l2-1h9l4-1 6-2h6l2-1h7l5-1h1l1-1h15l1 1 2-1 2 1h2l1-1h1v1h1l6 1h2l1-1h4l2-1 4 1h5l2 1h1l1-1h3v1h2l3 1h5l1-1 1 1 1-1 2 1h6l2 1 3 1h1l2-1 2 1h8l2-1 2 1h4l2-1 2 1h4l1-1h9l3-1h4l1 1h4l2 1h18l3-1h4l1 1 1-1h2l1 1h7l2-1h1l1 1 4-1h11l2-1h2V4l1 1 4 1h1l2 1v1l4 1 4 1 3-1-1 1h2l1 1h2l-1 1h2l3 1 5 1 6 1 4 1 2 2 4-1h3l4 2 2-1h9l1 1h1l1-1 1 2 5-1h2l3-1 4 2 3 1 5 1 3-1 2 2 1 1 1 1h2l1 1 7 2h1l1 1h3l4 3 1-1 4 1 3 1h4l3 1 1 1h4l2 2h3l3 3h2l2 1h2l5 1 1-1 3 1 4 2v1l7-1-1 1h11l5 2h3l2-1v-2l2-1h9l3-2 4 1h5l3-1h5l5 1 1 1 2-1h5l2 1h4l4 1h4l2-1 4 2h1l2-1 2 1 1-2 1 1 2-1 1 1h15v1l3-1h1l3-1 1 1 1-1h2l6 2 1-1 3 1h3l3 1h3l8 2 5-1v1l2-1h1z"></path></svg>
+                <div class="body-text-normal text-center py-5 w-100 text-white"
+                style="position:absolute; z-index: 5;background-color: #4D6BC6;text-decoration: underline;text-decoration-style: dashed;text-underline-position: under;" style="position: relative; z-index: 2;">
+                <svg style="width: 36px; padding-right: 12px" fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" aria-hidden="true" focusable="false">
+                    <path d="M60.1 38H49v11h-2V38H35.9c1.931 9.368 6.626 17 12.1 17 5.474 0 10.171-7.632 12.1-17zm-25.145-9.5c-.003 2.511.19 5.019.577 7.5H47V18.522l-10.925.238a41.683 41.683 0 00-1.12 9.74zM47 2.31c-4.1 1.24-8.18 7.168-10.38 14.437L47 16.52V2.31z"></path>
+                    <path d="M57.52 9.45l1.784-.9a31.775 31.775 0 012.558 7.65l9.117-.2.042 2-8.78.19c.55 3.41.818 6.857.8 10.31a50.836 50.836 0 01-.54 7.5H72v2h-9.846c-1.6 8.2-5.244 15.053-9.862 17.754C66.834 54.079 76 43.793 76 28.589c0-8.962-2.958-16.353-8.554-21.373A25.424 25.424 0 0049 1.04v15.438l10.83-.236a29.32 29.32 0 00-2.31-6.791zM43.51 55.643c-4.525-2.78-8.086-9.564-9.665-17.643H24v-2h9.5a50.84 50.84 0 01-.549-7.5 43.776 43.776 0 011.075-9.7l-9.009.2-.042-2 9.562-.208c1.89-6.667 5.317-12.436 9.432-15.143C29.71 4.412 20 15.13 20 28.589a27.636 27.636 0 0023.51 27.054z"></path>
+                    <path d="M61.045 28.5a60.27 60.27 0 00-.818-10.265L49 18.479v17.52h11.468c.388-2.48.58-4.988.577-7.5zM91.7 60c-2.182 4.525-5.734 8.62-10.832 13.719l-1.414-1.414c6.6-6.6 10.511-11.424 12.08-17.7.072-.415.137-.832.215-1.278.607-3.48.262-5.951-1.027-6.068-.72-.066-1.559.68-1.947 2.3a30.158 30.158 0 01-2.454 8.148c-1.78 4.663-8.575 11.048-8.865 11.318l-1.366-1.461c.068-.063 6.8-6.391 8.381-10.62l.061-.133a30.644 30.644 0 002.526-9.148c.11-1.886.095-6.433-1.793-6.552-2.085-.132-2.537 3.505-3.367 7.379-.259 1.21-.89 3.456-1.153 4.243a1.55 1.55 0 01-.09.177c-1.386 4.053-5.32 7.859-5.515 8.045-2.984 2.983-9.707 9.74-9.707 9.74L64.01 69.3s6.726-6.761 9.727-9.761a28.158 28.158 0 003.064-3.6c.5-.788 1.452-2.646.55-3.572-1.148-1.178-3.287-.648-6.08.748-1.98.992-11.21 7.08-15.384 13.34-1.99 2.985-2.772 8.839-3.042 14.2l13.18 2.724 6.8 1.359a8.92 8.92 0 011-.778c7.075-4.74 14.663-11.833 17.317-16.54 3.566-6.32 1.988-7.52.558-7.42zM52.774 82.673l-.77 10.252 1.993.15.595-7.913 10.616 2.123 3.765.778L70.02 93.2l1.96-.4-.885-4.338 2.592.518.392-1.96-8.447-1.69-12.858-2.657zm-29.242 2.055l6.77-1.354 13.206-2.73c-.27-5.36-1.052-11.214-3.042-14.2-4.173-6.258-13.4-12.347-15.384-13.34-2.793-1.4-4.932-1.925-6.08-.747-.9.926.054 2.784.55 3.572a28.158 28.158 0 003.064 3.6c3 3 9.727 9.76 9.727 9.76l-1.418 1.41s-6.723-6.757-9.707-9.74c-.2-.186-4.129-3.992-5.515-8.045a1.74 1.74 0 01-.09-.177c-.263-.787-.894-3.033-1.153-4.243-.83-3.874-1.282-7.511-3.367-7.38-1.888.12-1.9 4.667-1.793 6.553a30.645 30.645 0 002.526 9.148l.061.133c1.58 4.229 8.313 10.557 8.381 10.62L18.9 69.034c-.29-.27-7.084-6.655-8.865-11.318a30.16 30.16 0 01-2.454-8.148c-.388-1.622-1.226-2.37-1.947-2.3-1.287.114-1.634 2.586-1.025 6.065.078.446.143.863.215 1.278C6.394 60.883 10.3 65.7 16.9 72.307l-1.41 1.414c-5.1-5.1-8.65-9.194-10.832-13.72-1.434-.104-3.013 1.1.553 7.42 2.654 4.706 10.238 11.8 17.321 16.529a8.92 8.92 0 011 .778zm7.175.605l-8.433 1.687.393 1.96 2.591-.518-.885 4.338 1.96.4 1.047-5.137 3.75-.775 10.631-2.126.595 7.913 1.994-.15-.77-10.252-12.873 2.66z"></path>
+                  </svg>Etsy is powered by 100% renewable electricity.</div>
+            </div>
+        </div>
+        <div class="h-100" style="background-color: #2F466C !important; position: relative; top:5rem; color: white">
+            <div style="margin-left: 11.1rem; margin-right: 10.5rem;" class="row">
+                <div class="col-12 col-md-3 py-5">
+                    <h4 class="mb-3 body-text-bold" style="font-size: 16px">Shop</h4>
+                    <p class="body-text-normal" style="font-size: 13px">Gift cards</p>
+                    <p class="body-text-normal" style="font-size: 13px">Etsy Blog</p>
+                </div>
+                <div class="col-12 col-md-3 py-5">
+                    <h4 class="mb-3 body-text-bold" style="font-size: 16px">Sell</h4>
+                    <p class="body-text-normal" style="font-size: 13px">Sell on Etsy</p>
+                    <p class="body-text-normal" style="font-size: 13px">Teams</p>
+                    <p class="body-text-normal" style="font-size: 13px">Forums</p>
+                    <p class="body-text-normal" style="font-size: 13px">Affiliates</p>
+                </div>
+                <div class="col-12 col-md-3 py-5">
+                    <h4 class="mb-3 body-text-bold" style="font-size: 16px">About</h4>
+                    <p class="body-text-normal" style="font-size: 13px">Etsy, Inc</p>
+                    <p class="body-text-normal" style="font-size: 13px">Policies</p>
+                    <p class="body-text-normal" style="font-size: 13px">Investors</p>
+                    <p class="body-text-normal" style="font-size: 13px">Careers</p>
+                    <p class="body-text-normal" style="font-size: 13px">Press</p>
+                    <p class="body-text-normal" style="font-size: 13px">Impact</p>
+                </div>
+                <div class="col-12 col-md-3 py-5">
+                    <h4 class="mb-3 body-text-bold" style="font-size: 16px">Help</h4>
+                    <p class="body-text-normal" style="font-size: 13px">Help Centere</p>
+                    <p class="body-text-normal" style="font-size: 13px">Trust and safety</p>
+                    <p class="body-text-normal" style="font-size: 13px">Privacy settings</p>
+                    <span class="d-flex align-items-center mt-5" style="border-radius: 30px; border: 2px solid white; padding: .25rem .5rem; width: 73%">
+                        <svg style="margin-right: .5rem; margin-left: .5rem" width="24px" fill="white" xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <path
+                                d="M18 2H6C3.8 2 2 3.8 2 6v12c0 2.2 1.8 4 4 4h12c2.2 0 4-1.8 4-4V6c0-2.2-1.8-4-4-4zm-1.3 16s-2.3-.1-3.3-.1H9l-2.6.1v-.7l.9-.2c.6-.1.7-.2.7-.7 0 0 .1-1.6.1-4.3 0-2.7-.1-4.4-.1-4.4 0-.5-.2-.6-.8-.7l-.8-.2v-.7l2.6.1h4.9c1 0 2.6-.2 2.6-.2s-.1 1-.1 3.4h-.7l-.2-.8c-.3-1.1-.7-1.6-1.4-1.6h-3.8c-.3 0-.3 0-.3.2v4.4s1.6 0 2.4-.1c.4.1.9-.3.9-.7v-.1l.2-1h.7l-.1 2.1.1 2.2h-.7l-.2-.8c-.1-.5-.5-.8-.9-.8-.6-.1-2.4-.1-2.4-.1V16c0 .7.4 1 1.2 1h2.6c.9.1 1.8-.4 2.1-1.2l.7-1.4h.6c-.1.4-.4 3-.5 3.6z">
+                            </path>
+                        </svg>
+                        <span class="mb-0 body-text-bold" style="font-size: 13px">Download the Etsy App</span>
+                    </span>
+                    <div class="mt-4">
+                        <svg style="margin-right: 12px;" width="36px" fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12,5.447c2.136,0,2.389,0.008,3.233,0.047c0.78,0.036,1.204,0.166,1.485,0.275c0.373,0.145,0.64,0.318,0.92,0.598 c0.28,0.28,0.453,0.546,0.598,0.92c0.11,0.282,0.24,0.706,0.275,1.485c0.038,0.844,0.047,1.097,0.047,3.233 s-0.008,2.389-0.047,3.233c-0.036,0.78-0.166,1.204-0.275,1.485c-0.145,0.373-0.318,0.64-0.598,0.92 c-0.28,0.28-0.546,0.453-0.92,0.598c-0.282,0.11-0.706,0.24-1.485,0.275c-0.843,0.038-1.096,0.047-3.233,0.047 s-2.389-0.008-3.233-0.047c-0.78-0.036-1.204-0.166-1.485-0.275c-0.373-0.145-0.64-0.318-0.92-0.598 c-0.28-0.28-0.453-0.546-0.598-0.92c-0.11-0.282-0.24-0.706-0.275-1.485c-0.038-0.844-0.047-1.097-0.047-3.233 S5.45,9.616,5.488,8.773c0.036-0.78,0.166-1.204,0.275-1.485c0.145-0.373,0.318-0.64,0.598-0.92c0.28-0.28,0.546-0.453,0.92-0.598 c0.282-0.11,0.706-0.24,1.485-0.275C9.611,5.455,9.864,5.447,12,5.447 M12,4.005c-2.173,0-2.445,0.009-3.298,0.048 C7.85,4.092,7.269,4.227,6.76,4.425C6.234,4.63,5.787,4.903,5.343,5.348C4.898,5.793,4.624,6.239,4.42,6.765 c-0.198,0.509-0.333,1.09-0.372,1.942C4.009,9.56,4,9.833,4,12.005c0,2.173,0.009,2.445,0.048,3.298 c0.039,0.852,0.174,1.433,0.372,1.942c0.204,0.526,0.478,0.972,0.923,1.417c0.445,0.445,0.891,0.718,1.417,0.923 c0.509,0.198,1.09,0.333,1.942,0.372c0.853,0.039,1.126,0.048,3.298,0.048s2.445-0.009,3.298-0.048 c0.852-0.039,1.433-0.174,1.942-0.372c0.526-0.204,0.972-0.478,1.417-0.923c0.445-0.445,0.718-0.891,0.923-1.417 c0.198-0.509,0.333-1.09,0.372-1.942C19.991,14.45,20,14.178,20,12.005s-0.009-2.445-0.048-3.298 c-0.039-0.852-0.174-1.433-0.372-1.942c-0.204-0.526-0.478-0.972-0.923-1.417c-0.445-0.445-0.891-0.718-1.417-0.923 c-0.509-0.198-1.09-0.333-1.942-0.372C14.445,4.014,14.173,4.005,12,4.005L12,4.005z"></path><path d="M12,7.897c-2.269,0-4.108,1.839-4.108,4.108S9.731,16.113,12,16.113s4.108-1.839,4.108-4.108S14.269,7.897,12,7.897z  M12,14.672c-1.473,0-2.667-1.194-2.667-2.667S10.527,9.339,12,9.339s2.667,1.194,2.667,2.667S13.473,14.672,12,14.672z"></path><circle cx="16.27" cy="7.735" r="0.96"></circle></svg>
+                        <svg style="margin-right: 12px;" width="36px" fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20,5V19a1.007,1.007,0,0,1-1,1H15V13.776h2l0.336-2.3H15V9.659a0.912,0.912,0,0,1,1-1.031h1.5V6.55a11.284,11.284,0,0,0-1.641-.109c-2.2,0-3.3,1.219-3.3,3.039v1.992h-2v2.3h2V20H5a1.007,1.007,0,0,1-1-1V5A1.007,1.007,0,0,1,5,4H19A1.007,1.007,0,0,1,20,5Z"></path></svg>
+                        <svg style="margin-right: 12px;" width="36px" fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3c-4.97 0-9 4.03-9 9 0 3.813 2.372 7.072 5.72 8.384-.08-.712-.15-1.807.03-2.585.164-.703 1.056-4.475 1.056-4.475s-.27-.54-.27-1.336c0-1.252.726-2.187 1.63-2.187.768 0 1.14.577 1.14 1.268 0 .773-.493 1.928-.746 2.998-.212.896.45 1.626 1.333 1.626 1.6 0 2.83-1.687 2.83-4.12 0-2.156-1.55-3.663-3.76-3.663-2.56 0-4.064 1.922-4.064 3.907 0 .773.297 1.603.67 2.054.073.09.083.168.06.26-.067.283-.22.895-.25 1.02-.038.165-.13.2-.3.12-1.124-.523-1.827-2.167-1.827-3.487 0-2.84 2.063-5.446 5.947-5.446 3.122 0 5.548 2.225 5.548 5.198 0 3.102-1.956 5.598-4.67 5.598-.912 0-1.77-.474-2.063-1.033l-.56 2.14c-.204.78-.753 1.76-1.12 2.358.842.26 1.737.402 2.665.402 4.97 0 9-4.03 9-9s-4.03-9-9-9"></path></svg>
+                        <svg style="margin-right: 12px;" width="36px" fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18.3,8.559V9.007a9.666,9.666,0,0,1-9.729,9.737,9.614,9.614,0,0,1-5.256-1.394,5.367,5.367,0,0,0,.814.057,6.906,6.906,0,0,0,4.245-1.621,3.412,3.412,0,0,1-3.186-2.379,3.339,3.339,0,0,0,1.548-.058A3.419,3.419,0,0,1,3.988,9.993V9.952a3.427,3.427,0,0,0,1.548.424A3.407,3.407,0,0,1,4,7.54a3.261,3.261,0,0,1,.465-1.662A9.729,9.729,0,0,0,11.517,9.39a3.588,3.588,0,0,1-.073-0.79,3.408,3.408,0,0,1,3.414-3.414,3.542,3.542,0,0,1,2.518,1.075,6.837,6.837,0,0,0,2.159-.831,3.391,3.391,0,0,1-1.507,1.9A6.657,6.657,0,0,0,20,6.782,6.927,6.927,0,0,1,18.3,8.559Z"></path></svg>
+                        <svg width="36px" fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20,12c0,5.664,0,5.664-8,5.664s-8,0-8-5.664,0-5.664,8-5.664S20,6.333,20,12Zm-5,0L10,9v6Z"></path></svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="h-100" style="background-color:#232347; margin-top: 5rem">
+            <div class="d-flex align-items-center justify-content-between" style="margin-left: 11.1rem; margin-right: 10.5rem; padding-top: 2rem; padding-bottom: 2rem">
+                <div class="d-flex align-items-center">
+                    <svg width="24px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><title>US</title><defs><path d="M9.68 20.004C4.3 19.834-.02 15.392 0 9.972.02 4.466 4.5.002 10 .002h.035C15.55.022 20.02 4.522 20 10.04c-.016 5.398-4.328 9.795-9.68 9.964h-.64z" id="a"></path><path d="M9.68 20.004C4.3 19.834-.02 15.392 0 9.972.02 4.466 4.5.002 10 .002h.035C15.55.022 20.02 4.522 20 10.04c-.016 5.398-4.328 9.795-9.68 9.964h-.64z" id="d"></path><filter x="-2.5%" y="-2.5%" width="105%" height="105%" filterUnits="objectBoundingBox" id="c"><feGaussianBlur stdDeviation=".5" in="SourceAlpha" result="shadowBlurInner1"></feGaussianBlur><feOffset in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset><feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0" in="shadowInnerInner1"></feColorMatrix></filter></defs><g transform="translate(0 -.004)" fill="none" fill-rule="evenodd"><mask id="b" fill="#fff"><use xlink:href="#a"></use></mask><path fill="#FFF" mask="url(#b)" d="M-.004 4.506h20v-2.5h-20"></path><path fill="#B73C24" mask="url(#b)" d="M-.004 6.502h20v-2.5h-20m0-1.5h20v-2.5h-20"></path><path fill="#FFF" mask="url(#b)" d="M-.004 8.502h20v-2.5h-20"></path><path fill="#B73C24" mask="url(#b)" d="M-.004 10.498h20v-2.5h-20"></path><path fill="#FFF" mask="url(#b)" d="M-.004 12.506h20v-2.5h-20"></path><path fill="#B73C24" mask="url(#b)" d="M-.004 14.502h20v-2.5h-20"></path><path fill="#FFF" mask="url(#b)" d="M-.004 16.502h20v-2.5h-20m0 6.5h20v-2.5h-20"></path><path fill="#B73C24" mask="url(#b)" d="M-.004 18.498h20v-2.5h-20"></path><path fill="#00247F" mask="url(#b)" d="M-.004 10.002H10V.006H-.003"></path><path d="M8.996 1.007c0 .276-.224.5-.5.5s-.5-.224-.5-.5.224-.5.5-.5.5.224.5.5m-2.646 0c0 .276-.224.5-.5.5s-.5-.224-.5-.5.224-.5.5-.5.5.224.5.5m-2.646 0c0 .276-.224.5-.5.5s-.5-.224-.5-.5.224-.5.5-.5.5.224.5.5m5.292 3.996c0 .276-.224.5-.5.5s-.5-.224-.5-.5.224-.5.5-.5.5.224.5.5m-2.646 0c0 .276-.224.5-.5.5s-.5-.224-.5-.5.224-.5.5-.5.5.224.5.5m-2.646 0c0 .276-.224.5-.5.5s-.5-.224-.5-.5.224-.5.5-.5.5.224.5.5M7.65 7c0 .275-.224.5-.5.5s-.5-.225-.5-.5c0-.277.224-.5.5-.5s.5.223.5.5M5.005 7c0 .275-.224.5-.5.5s-.5-.225-.5-.5c0-.277.224-.5.5-.5s.5.223.5.5M2.36 7c0 .275-.225.5-.5.5-.277 0-.5-.225-.5-.5 0-.277.223-.5.5-.5.275 0 .5.223.5.5m5.29-3.997c0 .276-.224.5-.5.5s-.5-.224-.5-.5.224-.5.5-.5.5.224.5.5m-2.645 0c0 .276-.224.5-.5.5s-.5-.224-.5-.5.224-.5.5-.5.5.224.5.5m-2.645 0c0 .276-.225.5-.5.5-.277 0-.5-.224-.5-.5s.223-.5.5-.5c.275 0 .5.224.5.5m6.636 6.004c0 .276-.224.5-.5.5s-.5-.224-.5-.5.224-.5.5-.5.5.224.5.5m-2.646 0c0 .276-.224.5-.5.5s-.5-.224-.5-.5.224-.5.5-.5.5.224.5.5m-2.646 0c0 .276-.224.5-.5.5s-.5-.224-.5-.5.224-.5.5-.5.5.224.5.5m-3 0c0 .276-.224.5-.5.5s-.5-.224-.5-.5.224-.5.5-.5.5.224.5.5" fill="#FFF" mask="url(#b)"></path><use filter="url(#c)" xlink:href="#d" fill="#000"></use></g></svg>
+                    <p class="mb-0 ml-2 text-white" style="font-size: 13px">&nbsp; United States &nbsp; | &nbsp; English (UK) &nbsp; | &nbsp; $ (USD)</p>
+                </div>
+                <div class="d-flex align-items-center text-white">
+                    <p class="mb-0" style="font-size: 13px;margin-right: 1rem; text-decoration:underline;">&copy; 2021 Etsy, Inc.</p>
+                    <p class="mb-0" style="font-size: 13px;margin-right: 1rem; text-decoration:underline;">Terms of use</p>
+                    <p class="mb-0" style="font-size: 13px;margin-right: 1rem; text-decoration:underline;">Privacy</p>
+                    <p class="mb-0" style="font-size: 13px;margin-right: 1rem; text-decoration:underline;">Interest-based Ads</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  </body>
+</html>
